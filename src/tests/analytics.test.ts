@@ -5,6 +5,7 @@ vi.unmock('../firebase');
 
 import * as analytics from '../services/analytics';
 import * as firebaseAnalytics from 'firebase/analytics';
+import type { AppView } from '../types';
 
 vi.mock('firebase/analytics', () => ({
   logEvent: vi.fn(),
@@ -21,12 +22,12 @@ describe('Analytics Services', () => {
   });
 
   it('trackPageView should log event', () => {
-    analytics.trackPageView('dashboard' as any);
+    analytics.trackPageView('dashboard' as AppView);
     expect(firebaseAnalytics.logEvent).toHaveBeenCalledWith(expect.anything(), 'page_view', expect.anything());
   });
 
   it('trackNavigation should log event', () => {
-    analytics.trackNavigation('onboarding' as any, 'dashboard' as any);
+    analytics.trackNavigation('onboarding' as AppView, 'dashboard' as AppView);
     expect(firebaseAnalytics.logEvent).toHaveBeenCalledWith(expect.anything(), 'navigate', expect.anything());
   });
 

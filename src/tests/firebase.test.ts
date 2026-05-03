@@ -27,6 +27,7 @@ vi.mock('firebase/analytics', () => ({
 
 vi.mock('firebase/auth', () => ({
   getAuth: vi.fn(),
+  signInAnonymously: vi.fn().mockResolvedValue({}),
 }));
 
 vi.mock('firebase/performance', () => ({
@@ -40,7 +41,7 @@ describe('Firebase Services', () => {
 
   describe('submitFeedback', () => {
     it('should submit feedback successfully', async () => {
-      vi.mocked(firestore.addDoc).mockResolvedValueOnce({ id: 'test-id' } as any);
+      vi.mocked(firestore.addDoc).mockResolvedValueOnce({ id: 'test-id' } as unknown as firestore.DocumentReference);
       const result = await submitFeedback({
         rating: 5,
         comment: 'Great app',
@@ -67,7 +68,7 @@ describe('Firebase Services', () => {
 
   describe('logUsageEvent', () => {
     it('should log event successfully', async () => {
-      vi.mocked(firestore.addDoc).mockResolvedValueOnce({ id: 'event-id' } as any);
+      vi.mocked(firestore.addDoc).mockResolvedValueOnce({ id: 'event-id' } as unknown as firestore.DocumentReference);
       await expect(logUsageEvent({ eventType: 'test_event' })).resolves.not.toThrow();
       expect(firestore.addDoc).toHaveBeenCalled();
     });
@@ -84,7 +85,7 @@ describe('Firebase Services', () => {
         docs: [
           { id: '1', data: () => ({ comment: 'test' }) }
         ]
-      } as any);
+      } as unknown as firestore.QuerySnapshot);
       const result = await getRecentFeedback();
       expect(result).toEqual([{ id: '1', comment: 'test' }]);
     });

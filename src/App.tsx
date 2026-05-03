@@ -8,15 +8,17 @@ import { useEffect, useRef } from 'react';
 import { AppProvider, useApp } from './context';
 import { LiveAnnouncerProvider, useAnnouncer } from './components/LiveAnnouncer';
 import ErrorBoundary from './components/ErrorBoundary';
+import { lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Landing from './components/Landing';
 import Onboarding from './components/Onboarding';
 import Dashboard from './components/Dashboard';
-import StepGuide from './components/StepGuide';
-import Eligibility from './components/Eligibility';
-import MythsFacts from './components/MythsFacts';
-import Deadlines from './components/Deadlines';
-import Chat from './components/Chat';
+
+const StepGuide = lazy(() => import('./components/StepGuide'));
+const Eligibility = lazy(() => import('./components/Eligibility'));
+const MythsFacts = lazy(() => import('./components/MythsFacts'));
+const Deadlines = lazy(() => import('./components/Deadlines'));
+const Chat = lazy(() => import('./components/Chat'));
 import { trackPageView } from './services/analytics';
 import './App.css';
 
@@ -97,7 +99,9 @@ function AppContent() {
         role="region"
         aria-label="Main content"
       >
-        {renderView()}
+        <Suspense fallback={<div className="loading-state" aria-live="polite">Loading...</div>}>
+          {renderView()}
+        </Suspense>
       </div>
     </div>
   );

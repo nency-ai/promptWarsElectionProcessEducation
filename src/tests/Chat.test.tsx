@@ -12,7 +12,7 @@ vi.mock('@google/genai', () => {
   return {
     GoogleGenAI: class {
       models = {
-        generateContent: vi.fn().mockResolvedValue({ text: 'Mock AI response' }),
+        generateContent: vi.fn().mockResolvedValue({ text: '{"text": "Mock AI response", "quickQuestions": []}' }),
       };
     }
   };

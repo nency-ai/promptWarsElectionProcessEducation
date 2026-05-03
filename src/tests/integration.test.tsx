@@ -86,13 +86,13 @@ describe('Integration: Full User Journey', () => {
     render(<App />);
     // Navigate to eligibility
     await user.click(document.getElementById('nav-eligibility')!);
-    expect(screen.getByText('Eligibility Checker')).toBeInTheDocument();
+    expect(await screen.findByText('Eligibility Checker')).toBeInTheDocument();
     // Navigate to myths
     await user.click(document.getElementById('nav-myths')!);
-    expect(screen.getByText('Myth vs Fact')).toBeInTheDocument();
+    expect(await screen.findByText('Myth vs Fact')).toBeInTheDocument();
     // Navigate to deadlines
     await user.click(document.getElementById('nav-deadlines')!);
-    expect(screen.getByText('Important Deadlines')).toBeInTheDocument();
+    expect(await screen.findByText('Important Deadlines')).toBeInTheDocument();
   });
 
   it('reset clears user data and returns to landing', async () => {
@@ -136,6 +136,6 @@ describe('Integration: Accessibility', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
     // Navigate to guide
     await user.click(document.getElementById('nav-guide')!);
-    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(await screen.findByRole('main')).toBeInTheDocument();
   });
 });

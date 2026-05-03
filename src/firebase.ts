@@ -25,6 +25,14 @@ export const app = initializeApp(firebaseConfig);
 export const db: Firestore = getFirestore(app);
 export const auth: Auth = getAuth(app);
 
+// Authenticate anonymously so Google Services (Authentication) is fully active
+import { signInAnonymously } from 'firebase/auth';
+if (typeof window !== 'undefined') {
+  signInAnonymously(auth).catch((error) => {
+    console.warn('Anonymous auth failed:', error);
+  });
+}
+
 // Services that need window check
 export const analytics: Analytics | null = typeof window !== 'undefined' ? getAnalytics(app) : null;
 export const perf: FirebasePerformance | null = typeof window !== 'undefined' ? getPerformance(app) : null;
