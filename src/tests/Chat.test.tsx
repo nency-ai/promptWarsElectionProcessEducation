@@ -8,13 +8,15 @@ import Chat from '../components/Chat';
 import { renderWithProviders } from './helpers';
 
 // Mock the GoogleGenAI module
-vi.mock('@google/genai', () => ({
-  GoogleGenAI: vi.fn().mockImplementation(() => ({
-    models: {
-      generateContent: vi.fn().mockResolvedValue({ text: 'Mock AI response' }),
-    },
-  })),
-}));
+vi.mock('@google/genai', () => {
+  return {
+    GoogleGenAI: class {
+      models = {
+        generateContent: vi.fn().mockResolvedValue({ text: 'Mock AI response' }),
+      };
+    }
+  };
+});
 
 describe('Chat Component', () => {
   beforeEach(() => localStorage.clear());
