@@ -1,0 +1,315 @@
+/* ============================================
+   Step Guide Styles
+   ============================================ */
+
+.guide {
+  padding: var(--space-8) 0;
+  padding-bottom: 100px;
+}
+
+.guide__container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.guide__header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+
+.guide__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  margin-bottom: var(--space-3);
+}
+
+.guide__title-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.guide__subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--text-lg);
+  max-width: 500px;
+  margin: 0 auto var(--space-6);
+}
+
+.guide__stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.guide__stat-completed {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-accent);
+  flex-shrink: 0;
+}
+
+.guide__stat-bar {
+  width: 200px;
+  height: 6px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.guide__stat-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+/* Timeline */
+.guide__timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.guide__step {
+  position: relative;
+  padding-left: 56px;
+  margin-bottom: var(--space-2);
+}
+
+/* Connector */
+.guide__connector {
+  position: absolute;
+  left: 23px;
+  top: -8px;
+  width: 2px;
+  height: 16px;
+  background: var(--color-bg-tertiary);
+  z-index: 0;
+}
+
+.guide__connector--done {
+  background: var(--color-accent-success);
+}
+
+/* Check button */
+.guide__step-number {
+  position: absolute;
+  left: 0;
+  top: 20px;
+}
+
+.guide__check {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  transition: all var(--transition-base);
+  z-index: 1;
+  position: relative;
+}
+
+.guide__check:hover {
+  border-color: var(--color-accent-primary);
+  background: rgba(124, 58, 237, 0.1);
+  transform: scale(1.1);
+}
+
+.guide__check--done {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--color-accent-success);
+  color: var(--color-accent-success);
+}
+
+.guide__check--done:hover {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: var(--color-accent-success);
+}
+
+.guide__check-svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Step Card */
+.guide__step-card {
+  padding: var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.guide__step-card:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-bg-glass-hover);
+}
+
+.guide__step--completed .guide__step-card {
+  border-color: rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.guide__step--locked .guide__step-card {
+  opacity: 0.5;
+}
+
+.guide__step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.guide__step-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.guide__step-emoji {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.guide__step-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.guide__step--completed .guide__step-title {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-accent-success);
+  opacity: 0.7;
+}
+
+.guide__expand-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+  font-size: 1.2rem;
+}
+
+.guide__expand-btn:hover {
+  background: var(--color-bg-glass-hover);
+}
+
+.guide__expand-btn--open {
+  transform: rotate(180deg);
+}
+
+.guide__step-desc {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+/* Substeps */
+.guide__substeps {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.guide__substeps-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-accent);
+  margin-bottom: var(--space-3);
+}
+
+.guide__substeps-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.guide__substep {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.guide__substep-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* Complete Banner */
+.guide__complete-banner {
+  text-align: center;
+  padding: var(--space-10);
+  margin-top: var(--space-8);
+  background: var(--gradient-card);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-2xl);
+}
+
+.guide__complete-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.guide__complete-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-accent-success);
+  margin-bottom: var(--space-2);
+}
+
+.guide__complete-desc {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .guide__title {
+    font-size: var(--text-2xl);
+  }
+  .guide__step {
+    padding-left: 48px;
+  }
+  .guide__step-number {
+    left: 0;
+  }
+  .guide__check {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-sm);
+  }
+  .guide__connector {
+    left: 19px;
+  }
+}

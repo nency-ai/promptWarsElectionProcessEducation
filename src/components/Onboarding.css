@@ -1,0 +1,373 @@
+/* ============================================
+   Onboarding Styles
+   ============================================ */
+
+.onboarding {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  overflow: hidden;
+}
+
+.onboarding__bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.onboarding__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  animation: float 10s ease-in-out infinite;
+}
+
+.onboarding__orb--1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.5), transparent 70%);
+  top: -10%;
+  right: -5%;
+}
+
+.onboarding__orb--2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent 70%);
+  bottom: -10%;
+  left: -5%;
+  animation-delay: -4s;
+}
+
+.onboarding__container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Header / Progress */
+.onboarding__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+.onboarding__back {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.onboarding__back:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-glass-hover);
+}
+
+.onboarding__progress {
+  flex: 1;
+  height: 4px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.onboarding__progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+.onboarding__step-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* Step Content */
+.onboarding__step {
+  text-align: center;
+}
+
+.onboarding__step-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+  line-height: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
+.onboarding__step-title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.onboarding__step-desc {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Name Input */
+.onboarding__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.onboarding__input-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.onboarding__input {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-primary);
+  font-size: var(--text-lg);
+  font-family: var(--font-body);
+  text-align: center;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.onboarding__input:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+}
+
+.onboarding__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.onboarding__next-btn {
+  padding: var(--space-3) var(--space-8);
+  background: var(--gradient-primary);
+  color: white;
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-glow);
+}
+
+.onboarding__next-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.5);
+}
+
+.onboarding__next-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* State Search */
+.onboarding__search-wrapper {
+  max-width: 400px;
+  margin: 0 auto var(--space-6);
+}
+
+.onboarding__search {
+  width: 100%;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.onboarding__search:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+}
+
+.onboarding__search::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* State Grid */
+.onboarding__state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-2);
+  max-height: 400px;
+  overflow-y: auto;
+  padding: var(--space-2);
+}
+
+.onboarding__state-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.onboarding__state-btn:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-1px);
+}
+
+.onboarding__state-btn--selected {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: var(--color-accent-primary);
+}
+
+.onboarding__state-code {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-text-accent);
+  min-width: 24px;
+}
+
+.onboarding__state-name {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* Status Options */
+.onboarding__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.onboarding__option-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  text-align: left;
+}
+
+.onboarding__option-card:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-hover);
+  transform: translateX(4px);
+}
+
+.onboarding__option-card--selected {
+  background: rgba(124, 58, 237, 0.1);
+  border-color: var(--color-accent-primary);
+}
+
+.onboarding__option-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.onboarding__option-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.onboarding__option-label {
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.onboarding__option-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.onboarding__option-check {
+  font-size: 1.2rem;
+  color: var(--color-accent-primary);
+  flex-shrink: 0;
+}
+
+/* Goal Grid */
+.onboarding__goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-4);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.onboarding__goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  text-align: center;
+}
+
+.onboarding__goal-card:hover {
+  border-color: var(--goal-color, var(--color-accent-primary));
+  background: var(--color-bg-glass-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--goal-color, var(--color-accent-primary)) 30%, transparent);
+}
+
+.onboarding__goal-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.onboarding__goal-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.onboarding__goal-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .onboarding__step-title {
+    font-size: var(--text-2xl);
+  }
+  .onboarding__step-desc {
+    font-size: var(--text-base);
+  }
+  .onboarding__state-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  .onboarding__goal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
