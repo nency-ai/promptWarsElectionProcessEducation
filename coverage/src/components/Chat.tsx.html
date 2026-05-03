@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.64% </span>
+                <span class="strong">57.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/85</span>
+                <span class='fraction'>51/88</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.63% </span>
+                <span class="strong">26.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/76</span>
+                <span class='fraction'>21/78</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.03% </span>
+                <span class="strong">59.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/83</span>
+                <span class='fraction'>51/86</span>
             </div>
         
             
@@ -434,7 +434,10 @@
 <a name='L369'></a><a href='#L369'>369</a>
 <a name='L370'></a><a href='#L370'>370</a>
 <a name='L371'></a><a href='#L371'>371</a>
-<a name='L372'></a><a href='#L372'>372</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -602,6 +605,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -613,6 +617,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -664,6 +669,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -810,11 +816,11 @@
    ============================================ */
 &nbsp;
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { GoogleGenAI } from '@google/genai';
 import DOMPurify from 'dompurify';
 import { useApp } from '../context';
 import type { ChatMessage } from '../types';
 import { CHAT_RESPONSES } from '../data';
+import { trackChatMessage, trackChatQuickQuestion, trackChatFallback } from '../services/analytics';
 import './Chat.css';
 &nbsp;
 const QUICK_QUESTIONS = [
@@ -973,6 +979,7 @@ export default function Chat() {
       content: content.trim(),
       timestamp: Date.now(),
     });
+    trackChatMessage(false);
 &nbsp;
     setInputValue('');
     setIsTyping(true);
@@ -982,6 +989,7 @@ export default function Chat() {
 <span class="cstat-no" title="statement not covered" >        throw new Error('No API key found');</span>
       }
 &nbsp;
+      const { GoogleGenAI } = await import('@google/genai');
       const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
       const prompt = `You are a helpful, non-partisan AI guide for an Indian Election Companion application.
       
@@ -1036,6 +1044,7 @@ User Question: ${content}`;
 &nbsp;
     } catch (e) {
 <span class="cstat-no" title="statement not covered" >      console.warn("Falling back to static response:", e);</span>
+<span class="cstat-no" title="statement not covered" >      trackChatFallback(e instanceof Error ? e.message : 'Unknown error');</span>
       // Fallback to static responses if Gemini fails
       const responses = <span class="cstat-no" title="statement not covered" >getAIResponse(content);</span>
 &nbsp;
@@ -1068,8 +1077,8 @@ User Question: ${content}`;
   };
 &nbsp;
   const <span class="fstat-no" title="function not covered" >handleQuickQuestion = (k</span>ey: string, label: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >    trackChatQuickQuestion(key);</span>
 <span class="cstat-no" title="statement not covered" >    sendMessage(label);</span>
-<span class="cstat-no" title="statement not covered" >    void key; // referenced for future use</span>
   };
 &nbsp;
   return (
@@ -1183,7 +1192,7 @@ User Question: ${content}`;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-03T08:33:50.003Z
+                at 2026-05-03T08:43:36.348Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

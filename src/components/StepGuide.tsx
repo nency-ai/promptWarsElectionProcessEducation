@@ -5,6 +5,7 @@
 import { useMemo, useState } from 'react';
 import { useApp } from '../context';
 import { ELECTION_STEPS } from '../data';
+import { trackStepComplete, trackStepUncomplete } from '../services/analytics';
 import './StepGuide.css';
 
 export default function StepGuide() {
@@ -30,8 +31,10 @@ export default function StepGuide() {
     e.stopPropagation();
     if (user.completedSteps.includes(stepId)) {
       uncompleteStep(stepId);
+      trackStepUncomplete(stepId);
     } else {
       completeStep(stepId);
+      trackStepComplete(stepId);
     }
   };
 

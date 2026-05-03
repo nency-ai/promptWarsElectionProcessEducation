@@ -3,11 +3,11 @@
    ============================================ */
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { GoogleGenAI } from '@google/genai';
 import DOMPurify from 'dompurify';
 import { useApp } from '../context';
 import type { ChatMessage } from '../types';
 import { CHAT_RESPONSES } from '../data';
+import { trackChatMessage, trackChatQuickQuestion, trackChatFallback } from '../services/analytics';
 import './Chat.css';
 
 const QUICK_QUESTIONS = [
@@ -166,6 +166,7 @@ export default function Chat() {
       content: content.trim(),
       timestamp: Date.now(),
     });
+    trackChatMessage(false);
 
     setInputValue('');
     setIsTyping(true);
@@ -175,6 +176,7 @@ export default function Chat() {
         throw new Error('No API key found');
       }
 
+      const { GoogleGenAI } = await import('@google/genai');
       const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
       const prompt = `You are a helpful, non-partisan AI guide for an Indian Election Companion application.
       
@@ -229,6 +231,7 @@ User Question: ${content}`;
 
     } catch (e) {
       console.warn("Falling back to static response:", e);
+      trackChatFallback(e instanceof Error ? e.message : 'Unknown error');
       // Fallback to static responses if Gemini fails
       const responses = getAIResponse(content);
 
@@ -261,8 +264,8 @@ User Question: ${content}`;
   };
 
   const handleQuickQuestion = (key: string, label: string) => {
+    trackChatQuickQuestion(key);
     sendMessage(label);
-    void key; // referenced for future use
   };
 
   return (

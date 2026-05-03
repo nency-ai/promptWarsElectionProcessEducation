@@ -4,6 +4,7 @@
 
 import { useState, useMemo } from 'react';
 import { MYTHS_AND_FACTS } from '../data';
+import { trackMythFlip, trackMythCategoryFilter } from '../services/analytics';
 import './MythsFacts.css';
 
 type Category = 'all' | 'registration' | 'voting' | 'general' | 'security';
@@ -26,6 +27,7 @@ export default function MythsFacts() {
   }, [activeCategory]);
 
   const toggleCard = (id: string) => {
+    trackMythFlip(id);
     setFlippedCards(prev => {
       const next = new Set(prev);
       if (next.has(id)) {
@@ -56,7 +58,10 @@ export default function MythsFacts() {
             <button
               key={cat.value}
               className={`myths__filter ${activeCategory === cat.value ? 'myths__filter--active' : ''}`}
-              onClick={() => setActiveCategory(cat.value)}
+              onClick={() => {
+                trackMythCategoryFilter(cat.value);
+                setActiveCategory(cat.value);
+              }}
               role="tab"
               aria-selected={activeCategory === cat.value}
               id={`myth-filter-${cat.value}`}

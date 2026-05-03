@@ -2,10 +2,11 @@
    Onboarding Flow — Multi-step Setup
    ============================================ */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useApp } from '../context';
 import { INDIAN_STATES, GOAL_OPTIONS } from '../data';
 import type { VoterStatus } from '../types';
+import { trackOnboardingStart, trackOnboardingStep, trackOnboardingComplete } from '../services/analytics';
 import './Onboarding.css';
 
 type OnboardingStep = 'name' | 'state' | 'status' | 'goal';
@@ -21,6 +22,12 @@ const STATUS_OPTIONS: { value: VoterStatus; label: string; icon: string; desc: s
 
 export default function Onboarding() {
   const { state, setName, setState, setVoterStatus, setGoal, completeOnboarding, navigate } = useApp();
+  
+  // Track start on mount
+  useEffect(() => {
+    trackOnboardingStart();
+  }, []);
+
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('name');
   const [localName, setLocalName] = useState(state.user.name);
   const [searchState, setSearchState] = useState('');
@@ -30,12 +37,14 @@ export default function Onboarding() {
 
   const goNext = useCallback(() => {
     const nextIndex = stepIndex + 1;
+    trackOnboardingStep(STEPS[stepIndex]);
     if (nextIndex < STEPS.length) {
       setCurrentStep(STEPS[nextIndex]);
     } else {
+      trackOnboardingComplete(state.user.state, state.user.voterStatus, state.user.currentGoal);
       completeOnboarding();
     }
-  }, [stepIndex, completeOnboarding]);
+  }, [stepIndex, completeOnboarding, state.user]);
 
   const goBack = useCallback(() => {
     if (stepIndex > 0) {
@@ -65,6 +74,8 @@ export default function Onboarding() {
 
   const handleGoalSelect = (goal: typeof GOAL_OPTIONS[number]['id']) => {
     setGoal(goal);
+    trackOnboardingStep('goal');
+    trackOnboardingComplete(state.user.state, state.user.voterStatus, goal);
     completeOnboarding();
   };
 

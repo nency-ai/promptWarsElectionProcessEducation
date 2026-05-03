@@ -5,6 +5,7 @@
 import { useMemo } from 'react';
 import { useApp } from '../context';
 import { ELIGIBILITY_ITEMS } from '../data';
+import { trackEligibilityCheck, trackEligibilityComplete } from '../services/analytics';
 import './Eligibility.css';
 
 export default function Eligibility() {
@@ -24,7 +25,14 @@ export default function Eligibility() {
 
   const handleToggle = (id: string) => {
     const current = user.eligibilityChecks[id] ?? false;
-    setEligibility(id, !current);
+    const isNowChecked = !current;
+    setEligibility(id, isNowChecked);
+    trackEligibilityCheck(id, isNowChecked);
+    
+    // Check if this action makes them all checked
+    if (isNowChecked && checkedCount + 1 === items.length) {
+      trackEligibilityComplete();
+    }
   };
 
   return (
