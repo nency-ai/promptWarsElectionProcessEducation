@@ -2,13 +2,13 @@
    Eligibility Checker Component
    ============================================ */
 
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { useApp } from '../context';
 import { ELIGIBILITY_ITEMS } from '../data';
 import { trackEligibilityCheck, trackEligibilityComplete } from '../services/analytics';
 import './Eligibility.css';
 
-export default function Eligibility() {
+export default memo(function Eligibility() {
   const { state, setEligibility } = useApp();
   const { user } = state;
 
@@ -126,4 +126,4 @@ export default function Eligibility() {
       </div>
     </main>
   );
-}
+});

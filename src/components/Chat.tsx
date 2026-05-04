@@ -2,7 +2,8 @@
    AI Chat Guide — Contextual Assistant
    ============================================ */
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
+import { GoogleGenAI } from '@google/genai';
 import DOMPurify from 'dompurify';
 import { useApp } from '../context';
 import type { ChatMessage } from '../types';
@@ -23,7 +24,7 @@ function generateId(): string {
   return `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-export default function Chat() {
+export default memo(function Chat() {
   const { state, addChatMessage } = useApp();
   const { user, chatMessages } = state;
   const [inputValue, setInputValue] = useState('');
@@ -176,7 +177,6 @@ export default function Chat() {
         throw new Error('No API key found');
       }
 
-      const { GoogleGenAI } = await import('@google/genai');
       const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
       const prompt = `You are a helpful, non-partisan AI guide for an Indian Election Companion application.
       
@@ -371,4 +371,4 @@ User Question: ${content}`;
       </div>
     </main>
   );
-}
+});

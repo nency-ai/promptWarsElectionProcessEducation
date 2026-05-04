@@ -2,13 +2,13 @@
    Step Guide — Interactive Step-by-Step
    ============================================ */
 
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useApp } from '../context';
 import { ELECTION_STEPS } from '../data';
 import { trackStepComplete, trackStepUncomplete } from '../services/analytics';
 import './StepGuide.css';
 
-export default function StepGuide() {
+export default memo(function StepGuide() {
   const { state, completeStep, uncompleteStep } = useApp();
   const { user } = state;
   const [expandedStep, setExpandedStep] = useState<string | null>(null);
@@ -146,4 +146,4 @@ export default function StepGuide() {
       </div>
     </main>
   );
-}
+});

@@ -2,11 +2,11 @@
    Deadlines — Timeline View
    ============================================ */
 
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { DEADLINES } from '../data';
 import './Deadlines.css';
 
-export default function Deadlines() {
+export default memo(function Deadlines() {
   const categorizedDeadlines = useMemo(() => {
     const now = new Date();
     return DEADLINES.map(d => {
@@ -125,4 +125,4 @@ export default function Deadlines() {
       </div>
     </main>
   );
-}
+});

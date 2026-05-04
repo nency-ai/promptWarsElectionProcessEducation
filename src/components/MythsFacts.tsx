@@ -2,7 +2,7 @@
    Myths & Facts — Interactive Cards
    ============================================ */
 
-import { useState, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { MYTHS_AND_FACTS } from '../data';
 import { trackMythFlip, trackMythCategoryFilter } from '../services/analytics';
 import './MythsFacts.css';
@@ -17,7 +17,7 @@ const CATEGORIES: { value: Category; label: string; icon: string }[] = [
   { value: 'security', label: 'Security', icon: '🔒' },
 ];
 
-export default function MythsFacts() {
+export default memo(function MythsFacts() {
   const [activeCategory, setActiveCategory] = useState<Category>('all');
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
 
@@ -120,4 +120,4 @@ export default function MythsFacts() {
       </div>
     </main>
   );
-}
+});
